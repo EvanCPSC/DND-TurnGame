@@ -6,7 +6,7 @@
 #include <cstdlib>
 using namespace std;
 
-
+// comment
 
 
 struct Loot {
