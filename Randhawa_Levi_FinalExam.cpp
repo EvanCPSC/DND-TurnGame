@@ -153,6 +153,33 @@ struct PlayerChar {
         cout << " Cha: " << charisma << endl;
         cout << endl << endl;
     }
+    vector<string> getMoveset() {
+        vector<string> moveset;
+        if (job == "Fighter") {
+            moveset.push_back("Big Punch!");
+            moveset.push_back("Guard.");
+            moveset.push_back("Beserk~"); //Fighter dmg up by 1d6 + str
+        } else if (job == "Mage") {
+            moveset.push_back("Fireball!");
+            moveset.push_back("Force Field.");
+            moveset.push_back("Cast Fear~"); //Boss dmg down by 1d6
+        } else if (job == "Cleric") {
+            moveset.push_back("Smite!");
+            moveset.push_back("Faithful Shield.");
+            moveset.push_back("Heal~"); //Heal everyone by 1d6 + con
+        } else if (job == "Thief") {
+            moveset.push_back("Sneaky Stab!");
+            moveset.push_back("Stealth.");
+            moveset.push_back("~"); //
+        } else {
+            moveset.push_back("Attack!");
+            moveset.push_back("Block."); //2/3 of dmg
+            moveset.push_back("DmgD~"); //Dmg down to party 
+            moveset.push_back("DmgU~"); //Dmg up to boss
+        }
+        return moveset;
+
+    }
 
 };
 
