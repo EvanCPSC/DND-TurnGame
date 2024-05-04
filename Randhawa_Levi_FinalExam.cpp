@@ -426,24 +426,24 @@ int main(void) {
         (*listItr)->printCharInfo();
     }
 
-    
-    vector<string> fighterMoveset = {"Punch", "Block", "Shit-Talk"}
-
+    string[] chosenMoves = new string[5];
     do {
 
         for (listItr = myCharList.begin(); listItr != myCharList.end(); listItr++) {
-            if ((*listItr)->job == "Fighter") {
-
+            vector<string> moves = getMoveset((*listItr)->job);
+            cout << "Choose move for " << (*listItr)->name << " (1-3):\n";
+            for (int i = 0; i < 3; i++) {
+                cout << moves[i] << "\t";
             }
-            else if ((*listItr)->job == "Mage") {
+            cout << endl;
+            int choice = 0;
+            do {
+                cin >> choice;
+                if (choice > 0 && choice < 4) {
+                    cout << "Enter a number 1-3:\n";
+                }
+            } while (choice > 0 && choice < 4)
 
-            }
-            else if ((*listItr)->job == "Cleric") {
-
-            }
-            else { // Thief
-
-            }
         }
 
 
