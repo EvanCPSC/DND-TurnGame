@@ -287,6 +287,21 @@ Loot* randomLoot(list<PlayerChar*>::iterator charItr, int argRand) {
     }
 }
 
+void doMove(string move) {
+    string suffix = move.substr(move.length()-1);
+    move = move.substr(0, move.length()-1);
+    if (suffix == "!") {
+        doAttack(move);
+    } else if (suffix == ".") {
+        doBlock(move);
+    }else if (suffix == "~") {
+        doBuff(move);
+    }
+    
+}
+
+
+
 int main(void) {
     srand(time(0));
 
@@ -428,9 +443,10 @@ int main(void) {
 
     string[] chosenMoves = new string[5];
     do {
-
+        int turn = 0;
+        //players
         for (listItr = myCharList.begin(); listItr != myCharList.end(); listItr++) {
-            vector<string> moves = getMoveset((*listItr)->job);
+            vector<string> moves = (*listItr)->getMoveset();
             cout << "Choose move for " << (*listItr)->name << " (1-3):\n";
             for (int i = 0; i < 3; i++) {
                 cout << moves[i] << "\t";
@@ -442,9 +458,15 @@ int main(void) {
                 if (choice > 0 && choice < 4) {
                     cout << "Enter a number 1-3:\n";
                 }
-            } while (choice > 0 && choice < 4)
-
+            } while (choice <= 0 && choice >= 4)
+            chosenMoves[turn] = moves;
+            turn++;
         }
+        //boss stuff
+        int bossIndex = rand() % 4;
+        string bossMove = Boss->getMoveset()[bossIndex];
+        chosenMoves[4] = bossMove;
+        doMove(bossMove);
 
 
 
