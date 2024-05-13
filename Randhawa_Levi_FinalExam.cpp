@@ -5,7 +5,7 @@
 #include <ctime>
 #include <cstdlib>
 using namespace std;
-
+#include <moves.cpp>
 
 
 
@@ -172,10 +172,10 @@ struct PlayerChar {
             moveset.push_back("Stealth.");
             moveset.push_back("~"); //
         } else {
-            moveset.push_back("Attack!");
-            moveset.push_back("Block."); //2/3 of dmg
-            moveset.push_back("DmgD~"); //Dmg down to party 
-            moveset.push_back("DmgU~"); //Dmg up to boss
+            moveset.push_back("bAttack!");
+            moveset.push_back("bBlock."); //2/3 of dmg
+            moveset.push_back("bDmgD~"); //Dmg down to party 
+            moveset.push_back("bDmgU~"); //Dmg up to boss
         }
         return moveset;
 
@@ -287,18 +287,7 @@ Loot* randomLoot(list<PlayerChar*>::iterator charItr, int argRand) {
     }
 }
 
-void doMove(string move) {
-    string suffix = move.substr(move.length()-1);
-    move = move.substr(0, move.length()-1);
-    if (suffix == "!") {
-        doAttack(move);
-    } else if (suffix == ".") {
-        doBlock(move);
-    }else if (suffix == "~") {
-        doBuff(move);
-    }
-    
-}
+
 
 
 
@@ -414,7 +403,8 @@ int main(void) {
     myCharList.push_back(new PlayerChar("Follower of Shrek",  20, "Cleric", loot)); // cause ig Shrek is God
     myCharList.push_back(new PlayerChar("Jack Sparrow",  20, "Thief", loot));
 
-
+    
+    vector<PlayerChar*> playerVec;
     cout << "\n\n\n\t   Your Party"<< endl;
     cout << "----------------------------------" << endl << endl;
     for (listItr = myCharList.begin(); listItr != myCharList.end(); listItr++) {
@@ -438,10 +428,11 @@ int main(void) {
         //else { // Thief
         //    (*listItr)->damage = 10 + rollDie() + (((*listItr)->dexterity - 10) % 2);
         //}
+        playerVec.push_back(*listItr);
         (*listItr)->printCharInfo();
     }
 
-    string[] chosenMoves = new string[5];
+    Moves moves = new Moves(playerVec, Boss);
     do {
         int turn = 0;
         //players
